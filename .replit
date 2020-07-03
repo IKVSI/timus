@@ -1,2 +1,2 @@
 language = "python"
-run = "python 1552/python/1552.py > 1552/python/t1 && cat 1552/python/t1 | python 1552/python/brainfuck.py"
+run = "python 1552/python/1552x2.py > 1552/python/t1 && cat 1552/python/t1 | python 1552/python/brainfuck.py"
