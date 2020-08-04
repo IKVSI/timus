@@ -11,7 +11,7 @@ def run(number, tp, t=None):
         print("INPUT:")
         os.system(test)
         test += ' | '
-        print("\nOUTPUT")
+        print("\nOUTPUT:")
     else:
         test = ""
     if tp == "python":
@@ -21,13 +21,18 @@ def run(number, tp, t=None):
         tm = timeit.timeit(lambda: os.system(command), number=1)
     elif tp == "cpp":
         prog = "{}/{}/{}".format(os.getcwd(), tp, number)
+        cwd = os.getcwd()
+        os.chdir("..")
+        os.chdir("..")
+        runprog = "{}/{}".format(os.getcwd(), number)
+        os.chdir(cwd)
         command = "g++ -fno-strict-aliasing -DONLINE_JUDGE -lm -s -x c++ -std=c++14 -O2 {}.cpp -o {}"
-        command = command.format(prog, prog)
+        command = command.format(prog, runprog)
         os.system(command)
-        command = "{}{}".format(test, prog)
+        command = " {}{}".format(test, runprog)
         tm = timeit.timeit(lambda: os.system(command), number=1)
-        command = "rm {}".format(prog)
-    print("\nTIME: {}s\n".format(tm))
+        command = "rm {}".format(runprog)
+    print("\nTIME: {}s".format(tm))
 
 def main():
     number = ""
@@ -69,9 +74,9 @@ def main():
         else:
             print("No such type \"{}\"".format(temp))
     for t in tests:
-        print("Start test \"{}\" for task \"{}\" in \"{}\":\n".format(t, number, tp))
+        print("\nStart test \"{}\" for task \"{}\" in \"{}\":\n".format(t, number, tp))
         run(number, tp, t)
-    print("Start tast \"{}\" in \"{}\" for your test:".format(number, tp))
+    print("\nStart tast \"{}\" in \"{}\" for your test:".format(number, tp))
     run(number, tp)
     
 
