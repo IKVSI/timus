@@ -14,7 +14,7 @@ def run(number, tp, t=None):
         print("\nOUTPUT:")
     else:
         test = ""
-    if tp == "python":
+    if tp == "python3":
         prog = "{}/{}/{}.py".format(os.getcwd(), tp, number)
         command = "{}python3 {}"
         command = command.format(test, prog)
@@ -26,7 +26,7 @@ def run(number, tp, t=None):
         os.chdir("..")
         runprog = "{}/{}".format(os.getcwd(), number)
         os.chdir(cwd)
-        command = "g++ -fno-strict-aliasing -DONLINE_JUDGE -lm -s -x c++ -std=c++14 -O2 {}.cpp -o {}"
+        command = "g++ -fno-strict-aliasing -DONLINE_JUDGE -Wno-unused-result  -lm -s -x c++ -std=c++14 -O2 {}.cpp -o {}"
         command = command.format(prog, runprog)
         os.system(command)
         command = " {}{}".format(test, runprog)

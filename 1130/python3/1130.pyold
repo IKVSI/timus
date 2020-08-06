@@ -1,0 +1,71 @@
+#!/usr/bin/python3
+
+def testquarter(x, y):
+    if x == y == 0:
+        return 0
+    if x > 0 and y > 0:
+        return 1
+    elif x < 0 and y > 0:
+        return 2
+    elif x < 0:
+        return 3
+    else:
+        return 4
+
+def length(x, y):
+    return x ** 2 + y ** 2
+
+def newrxy(x, y, r, rxy):
+    tq = testquarter(x, y)
+    if tq:
+        if (not rxy[tq][2]) or (length(rxy[tq][0], rxy[tq][1]) > length(x, y)):
+            rxy[tq] = [x, y, r]
+    else:
+        for i in range(1, len(rxy)):
+            rxy[i] = [0, 0, r]
+    #print(rxy)
+    return tq
+
+N = int(input())
+L = int(input())
+
+points = [tuple(map(int, input().split())) for i in range(N)]
+
+rxy = [None, [0, 0, ""], [0, 0, ""], [0, 0, ""], [0, 0, ""]]
+for i in range(len(points)):
+    x1, x2, x3, x4 = rxy[1][0], rxy[2][0], rxy[3][0], rxy[4][0]
+    y1, y2, y3, y4 = rxy[1][1], rxy[2][1], rxy[3][1], rxy[4][1]
+    r1, r2, r3, r4 = rxy[1][2], rxy[2][2], rxy[3][2], rxy[4][2]
+    x, y = points[i]
+    #print(x, y)
+    rxy = [None, [0, 0, ""], [0, 0, ""], [0, 0, ""], [0, 0, ""]]
+    if len(r1) == i:
+        if not newrxy(x1 + x, y1 + y, r1+'+', rxy):
+            continue
+        if not newrxy(x1 - x, y1 - y, r1+'-', rxy):
+            continue
+    if len(r2) == i:
+        if not newrxy(x2 + x, y2 + y, r2+'+', rxy):
+            continue
+        if not newrxy(x2 - x, y2 - y, r2+'-', rxy):
+            continue
+    if len(r3) == i:
+        if not newrxy(x3 + x, y3 + y, r3+'+', rxy):
+            continue
+        if not newrxy(x3 - x, y3 - y, r3+'-', rxy):
+            continue
+    if len(r4) == i:
+        if not newrxy(x4 + x, y4 + y, r4+'+', rxy):
+            continue
+        if not newrxy(x4 - x, y4 - y, r4+'-', rxy):
+            continue
+print("YES")
+m = 0
+r = ""
+for i in range(2, 5):
+    if rxy[i][2]:
+        tm = length(rxy[i][0], rxy[i][1])
+        if (not r) or (tm < m):
+            m = tm
+            r = rxy[i][2]
+print(r)
