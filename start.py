@@ -32,6 +32,19 @@ def run(number, tp, t=None):
         command = " {}{}".format(test, runprog)
         tm = timeit.timeit(lambda: os.system(command), number=1)
         command = "rm {}".format(runprog)
+    elif tp == "csharp":
+        prog = "{}/{}/{}".format(os.getcwd(), tp, number)
+        cwd = os.getcwd()
+        os.chdir("..")
+        os.chdir("..")
+        runprog = "{}/{}".format(os.getcwd(), number)
+        os.chdir(cwd)
+        command = "mcs -out:{} {}.cs"
+        command = command.format(runprog, prog)
+        os.system(command)
+        command = " {}mono {}".format(test, runprog)
+        tm = timeit.timeit(lambda: os.system(command), number=1)
+        command = "rm {}".format(runprog)
     print("\nTIME: {}s".format(tm))
 
 def main():
