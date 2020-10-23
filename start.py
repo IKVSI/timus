@@ -58,11 +58,9 @@ def main():
         else:
             number = sys.argv[1]
     while not number:
-        temp = input("Input number of task?: ")
-        if not temp.isdigit():
-            print("\"{}\" - Not a number of task!".format(temp))
-        elif temp not in tasks:
-            print("No task number {}!".format(temp))
+        temp = input("Input name of task?: ")
+        if temp not in tasks:
+            print("No such name {}!".format(temp))
         else:
             number = temp
     os.chdir(number)
